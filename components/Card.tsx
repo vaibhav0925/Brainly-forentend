@@ -1,19 +1,30 @@
-import { PlusIcon } from "../Icons/PlusIcon";
 import { ShareIcon } from "../Icons/ShareIcon";
+import {TwitterIcons} from "../Icons/TwitterIcons"
+import {DeleteIcons} from "../Icons/DeleteIcons"
+import {YouTubeIcons} from "../Icons/YouTubeIcon"
+import {DocumentIcons} from "../Icons/DocumentIcons"
 
 interface CardProps{
-    title: string,
+    title: string, 
     link: string,
     type: "YouTube" | "Twitter"
 }
 
 export function Card ({title, link, type}: CardProps){
     return <div>
-        <div className="p-4 bg-white rounded-md border-grey-200 max-w-96 border min-h-42 min-w-72">
+        <div className="p-4 bg-[#f9fbfc] rounded-md border-grey-200 max-w-96 border min-h-42 min-w-72">
             <div className="flex justify-between">
                 <div className="flex items-center text-md">
                     <div className="text-gray-500 pr-2">
-                    <ShareIcon/>
+                        {(() => {
+                            if (type === 'Twitter') {
+                            return <TwitterIcons />;
+                            } else if (type === 'YouTube') {
+                            return <YouTubeIcons />;
+                            } else {
+                            return <DocumentIcons />;
+                            }
+                        })()}
                     </div>
                     {title}
                 </div>
@@ -24,12 +35,11 @@ export function Card ({title, link, type}: CardProps){
                         </a>
                     </div>
                     <div className="text-gray-500">
-                        <PlusIcon/>
+                        <DeleteIcons/>
                     </div>
                 </div>
             </div>
             <div className="pt-4">
-
                 {type=== "YouTube" && <iframe className="w-full" src={link.replace("watch", "embed").replace("?v=", "/")} 
                 title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
